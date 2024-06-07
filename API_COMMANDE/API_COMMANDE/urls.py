@@ -21,9 +21,10 @@ from ninja import NinjaAPI
 api = NinjaAPI()
 
 
-@api.get("/add")
-def add(request, a: int, b: int):
-    return {"result": a + b}
+@api.get("/hello")
+def hello(request, name="world"):
+    return f"hello {name}"
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
