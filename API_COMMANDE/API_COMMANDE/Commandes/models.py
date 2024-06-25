@@ -1,6 +1,9 @@
 from django.db import models
 
-# Create your models here.
+class Produits(models.Model) :
+    objects: models.Manager["Produits"]
+    id = models.CharField(max_length = 255, null = False)
+    
 class Commande(models.Model) :
     objects: models.Manager["Commande"]
     createdAt = models.DateField()
@@ -8,7 +11,5 @@ class Commande(models.Model) :
     customerId = models.CharField(max_length = 255, null = False)
     products = models.ManyToManyField(Produits)
 
-class Produits(models.Model) :
-    objects: models.Manager["Produits"]
-    id = models.CharField(max_length = 255, null = False)
+
     
