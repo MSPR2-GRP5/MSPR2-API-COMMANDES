@@ -1,4 +1,4 @@
-from Commandes.models import Commandes
+from Commande.models import Commandes
 from typing import Any
 
 def addCommande(id: int, customerId: int, panierId: int) -> int:
@@ -23,17 +23,17 @@ def updateCommande(id: int, customerId: int = 0, panierId: int = 0) -> int:
 
 def searchCommande(id: int = 0, customerId: int = 0, panierId: int = 0) -> Any:
     try:
-        Commandes = Commandes.objects.all()
+        commandes = Commandes.objects.all()
         print("banane")
         if id != 0:
             print("allo", id)
-            Commandes = Commandes.filter(id=id)
+            commandes = Commandes.objects.filter(id=id)
         else:
             if customerId != 0:
-                Commandes = Commandes.filter(customerId=customerId)
+                commandes = Commandes.objects.filter(customerId=customerId)
             if panierId != 0:
-                Commandes = Commandes.filter(panierId=panierId)
-        return Commandes
+                commandes = Commandes.objects.filter(panierId=panierId)
+        return commandes
 
     except Exception:
         return 0
