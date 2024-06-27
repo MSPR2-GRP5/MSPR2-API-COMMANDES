@@ -12,12 +12,12 @@ class ProduitsTestCase(TestCase):
         dbf.addProduit(id=3)
         self.assertEqual(Produits.objects.all().count(), 3)
 
-    def testReadCommande(self) -> None:
+    def testReadProduits(self) -> None:
         self.assertEqual(dbf.searchProduit(id=1).count(), 1)
 
-    def testDeleteCommande(self) -> None:
+    def testDeleteproduits(self) -> None:
         dbf.deleteCommande(id=3)
-        self.assertEqual(Commandes.objects.all().count(), 2)
+        self.assertEqual(Produits.objects.all().count(), 2)
 
 
 class CommandesTestCase(TestCase):
