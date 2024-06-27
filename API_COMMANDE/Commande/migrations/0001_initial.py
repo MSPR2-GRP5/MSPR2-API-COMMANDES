@@ -4,26 +4,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Produits',
+            name="Produits",
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
+                ("id", models.IntegerField(primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Commandes',
+            name="Commandes",
             fields=[
-                ('createdAt', models.DateField()),
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('customerId', models.CharField(max_length=255)),
-                ('products', models.ManyToManyField(to='Commande.produits')),
+                ("createdAt", models.DateField()),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("customerId", models.CharField(max_length=255)),
+                ("products", models.ManyToManyField(to="Commande.produits")),
             ],
         ),
     ]

@@ -14,20 +14,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from typing import Any
 
 from django.contrib import admin
 from django.urls import path
 from ninja import NinjaAPI
+import Commande.DBFunctions as dbf
 
 api = NinjaAPI()
 
 
-@api.get("/add")
-def add(request: Any, a: int, b: int) -> dict[str, int]:
-    return {"result": a + b}
+@api.post("/addCommande")
+def addCommande(request: Any, customerId: int, products: int) -> int:
+    return dbf.addCommande(customerId, products)
+
+@api.delete("/deleteCommnande")
+def deleteCommande(request: Any, id: int) -> int:
+    print("url debug")
+    return dbf.deleteCommande(id)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("api/", api.urls),
 ]

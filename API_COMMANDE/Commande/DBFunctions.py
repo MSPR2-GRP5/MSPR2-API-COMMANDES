@@ -1,38 +1,71 @@
-from Commande.models import Commandes
+from .models import Commandes, Produits
 from typing import Any
 
-def addCommande(id: int, customerId: int, panierId: int) -> int:
+
+def addProduit(id: int) -> int:
     try:
-        Commandes(id=id, customerId=customerId, panierId=panierId).save()
+        produit_tps = Produits(_id=id)
+        produit_tps.save()
+
         return 1
     except Exception:
         return 0
 
 
-def updateCommande(id: int, customerId: int = 0, panierId: int = 0) -> int:
+def searchProduit(id: int) -> Any:
     try:
-        Commande = Commandes.objects.filter(id=id)[0]
+        produits = Produits.objects.all()
+        produits = Produits.objects.filter(_id=id)
+        return produits
+
+    except Exception:
+        return 0
+
+
+def deleteProduits(id: int) -> int:
+    try:
+        Produits.objects.filter(_id=id).delete()
+        return 1
+    except Exception:
+        return 0
+
+
+def addCommande(customerId: int, products: int) -> int:
+    try:
+        p1 = Produits(_id=products)
+        p1.save()
+        commandes_tps = Commandes(_customerId=customerId, _products=p1)
+        commandes_tps.save()
+
+        return 1
+    except Exception:
+        return 0
+
+
+def updateCommande(id: int, customerId: int = 0, products: int = 0) -> int:
+    try:
+        Commande = Commandes.objects.filter(_id=id)[0]
         if customerId != 0:
-            Commande.customerId = customerId
-        if panierId != 0:
-            Commande.panierId = panierId
+            Commande._customerId = customerId
+        if products != 0:
+            Commande._products = products
         Commande.save()
         return 1
     except Exception:
         return 0
 
-def searchCommande(id: int = 0, customerId: int = 0, panierId: int = 0) -> Any:
+
+def searchCommande(id: int = 0, customerId: int = 0, products: int = 0) -> Any:
     try:
         commandes = Commandes.objects.all()
-        print("banane")
         if id != 0:
             print("allo", id)
-            commandes = Commandes.objects.filter(id=id)
+            commandes = Commandes.objects.filter(_id=id)
         else:
             if customerId != 0:
-                commandes = Commandes.objects.filter(customerId=customerId)
-            if panierId != 0:
-                commandes = Commandes.objects.filter(panierId=panierId)
+                commandes = Commandes.objects.filter(_customerId=customerId)
+            if products != 0:
+                commandes = Commandes.objects.filter(_products=products)
         return commandes
 
     except Exception:
@@ -41,7 +74,10 @@ def searchCommande(id: int = 0, customerId: int = 0, panierId: int = 0) -> Any:
 
 def deleteCommande(id: int) -> int:
     try:
-        Commandes.objects.filter(id=id).delete()
+        Commandes.objects.filter(_id=id).delete()
+        print("dbfunction : delete true")
         return 1
     except Exception:
+        print("dbfunction : delete false")
         return 0
+    
