@@ -27,7 +27,6 @@ class CommandesTestCase(TestCase):
         self.commande1 = Commandes.objects.create(customerId=1, products=self.produit1)
         self.commande2 = Commandes.objects.create(customerId=1, products=self.produit2)
 
-
     def testCreateCommande(self) -> None:
         dbf.addCommande(customerId=2, products=1)
         self.assertEqual(Commandes.objects.all().count(), 3)

@@ -6,26 +6,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Produits',
+            name="Produits",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Commandes',
+            name="Commandes",
             fields=[
-                ('createdAt', models.DateField(default=datetime.date.today)),
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('customerId', models.IntegerField(default=1)),
-                ('products', models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='Commande.produits')),
+                ("createdAt", models.DateField(default=datetime.date.today)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("customerId", models.IntegerField(default=1)),
+                (
+                    "products",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="Commande.produits",
+                    ),
+                ),
             ],
         ),
     ]

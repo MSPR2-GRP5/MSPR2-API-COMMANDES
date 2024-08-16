@@ -71,12 +71,12 @@ def searchCommande(id: int = 0, customerId: int = 0, products: int = 0) -> Any:
     except Exception:
         return 0
 
-def getCommandes() -> Any :
-    try :
-        commandes = Commandes.objects.all()
+
+def getCommandes() -> Any:
+    try:
         return Commandes.objects.all()
 
-    except Exception :
+    except Exception:
         return 0
 
 
@@ -88,4 +88,3 @@ def deleteCommande(id: int) -> int:
     except Exception:
         print("dbfunction : delete false")
         return 0
-    

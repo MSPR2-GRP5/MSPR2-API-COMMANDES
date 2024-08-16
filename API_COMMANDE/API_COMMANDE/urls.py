@@ -2,7 +2,7 @@ from typing import Any
 
 from django.contrib import admin
 from django.urls import path
-from ninja import NinjaAPI,Schema
+from ninja import NinjaAPI, Schema
 import Commande.DBFunctions as dbf
 from datetime import datetime
 from ninja_apikey.security import APIKeyAuth
@@ -10,28 +10,34 @@ from ninja_apikey.security import APIKeyAuth
 api = NinjaAPI(auth=APIKeyAuth())
 # api = NinjaAPI()
 
+
 class ProductSchema(Schema):
-    id : int
+    id: int
+
 
 class CommandesOut(Schema):
-    id : int
-    createdAt : datetime
-    customerId : int
-    products : ProductSchema
-    
-    
+    id: int
+    createdAt: datetime
+    customerId: int
+    products: ProductSchema
+
 
 @api.post("")
 def addCommande(request: Any, customerId: int, products: int) -> int:
     return dbf.addCommande(customerId, products)
 
-@api.get("",response=list[CommandesOut])
-def getCommandes(request : Any) -> Any:
+
+@api.get("", response=list[CommandesOut])
+def getCommandes(request: Any) -> Any:
     return dbf.getCommandes()
 
+
 @api.patch("{id}")
-def updateCommande(request : Any, id : int, client_id : int = 0 , product_id : int = 0):
-    return dbf.updateCommande(id,client_id,product_id)
+def updateCommande(
+    request: Any, id: int, client_id: int = 0, product_id: int = 0
+) -> int:
+    return dbf.updateCommande(id, client_id, product_id)
+
 
 @api.delete("")
 def deleteCommande(request: Any, id: int) -> int:
