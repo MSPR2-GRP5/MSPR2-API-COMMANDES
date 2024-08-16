@@ -5,8 +5,8 @@ import Commande.DBFunctions as dbf
 
 class ProduitsTestCase(TestCase):
     def setUp(self) -> None:
-        self.p1 = Produits.objects.create(_id=1)
-        self.p2 = Produits.objects.create(_id=2)
+        self.p1 = Produits.objects.create(id=1)
+        self.p2 = Produits.objects.create(id=2)
 
     def testCreateProduits(self) -> None:
         dbf.addProduit(id=3)
@@ -22,10 +22,10 @@ class ProduitsTestCase(TestCase):
 
 class CommandesTestCase(TestCase):
     def setUp(self) -> None:
-        self.produit1 = Produits.objects.create(_id=1)
-        self.produit2 = Produits.objects.create(_id=2)
-        self.commande1 = Commandes.objects.create(_customerId=1, _products=self.produit1)
-        self.commande2 = Commandes.objects.create(_customerId=1, _products=self.produit2)
+        self.produit1 = Produits.objects.create(id=1)
+        self.produit2 = Produits.objects.create(id=2)
+        self.commande1 = Commandes.objects.create(customerId=1, products=self.produit1)
+        self.commande2 = Commandes.objects.create(customerId=1, products=self.produit2)
 
 
     def testCreateCommande(self) -> None:
@@ -45,17 +45,17 @@ class CommandesTestCase(TestCase):
 
 
 # class ModelTests(TestCase):
-#     def test_many_to_many_relation(self):
+#     def testmanytomanyrelation(self):
 
 #         # Créez des instances de vos modèles
-#         produit1 = Produits.objects.create(_id=1)
-#         produit2 = Produits.objects.create(_id=2)
-#         commande = Commandes.objects.create(_customerId=1)
+#         produit1 = Produits.objects.create(id=1)
+#         produit2 = Produits.objects.create(id=2)
+#         commande = Commandes.objects.create(customerId=1)
 
 #         # Ajoutez les instances de Topping à la relation ManyToMany
-#         commande._products.add(produit1, produit2)
+#         commande.products.add(produit1, produit2)
 
 #         # Vérifiez que la relation ManyToMany fonctionne correctement
-#         self.assertEqual(commande._products.count(), 2)
-#         self.assertTrue(produit1 in commande._products.all())
-#         self.assertTrue(produit2 in commande._products.all())
+#         self.assertEqual(commande.products.count(), 2)
+#         self.assertTrue(produit1 in commande.products.all())
+#         self.assertTrue(produit2 in commande.products.all())
