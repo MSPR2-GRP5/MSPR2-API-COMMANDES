@@ -5,10 +5,10 @@ from django.urls import path
 from ninja import NinjaAPI,Schema
 import Commande.DBFunctions as dbf
 from datetime import datetime
-# from ninja_apikey.security import APIKeyAuth
+from ninja_apikey.security import APIKeyAuth
 
-#api = NinjaAPI(auth=APIKeyAuth())
-api = NinjaAPI()
+api = NinjaAPI(auth=APIKeyAuth())
+# api = NinjaAPI()
 
 class ProductSchema(Schema):
     id : int
