@@ -37,8 +37,7 @@ def addCommande(customerId: int, products: str) -> int:
             p1 = Produits(id=int(prod))
             p1.save()
             commandes_tps.save()
-            commandes_tps.products.add(p1)  
-        print("banane")        
+            commandes_tps.products.add(p1)      
         commandes_tps.save()
         return 1
     except Exception:
