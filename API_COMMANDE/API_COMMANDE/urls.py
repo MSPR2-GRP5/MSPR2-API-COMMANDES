@@ -1,33 +1,51 @@
-"""
-URL configuration for API_COMMANDE project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from typing import Any
 
 from django.contrib import admin
 from django.urls import path
-from ninja import NinjaAPI
+from ninja import NinjaAPI, Schema
+import Commande.DBFunctions as dbf
+from datetime import datetime
+from ninja_apikey.security import APIKeyAuth
 
-api = NinjaAPI()
+api = NinjaAPI(auth=APIKeyAuth())
+# api = NinjaAPI()
 
 
-@api.get("/add")
-def add(request: Any, a: int, b: int) -> dict[str, int]:
-    return {"result": a + b}
+class ProductSchema(Schema):
+    id: int
+
+
+class CommandesOut(Schema):
+    id: int
+    createdAt: datetime
+    customerId: int
+    products: list[ProductSchema]
+
+
+@api.post("")
+def addCommande(request: Any, customerId: int, products: str) -> int:
+    return dbf.addCommande(customerId, products)
+
+
+@api.get("", response=list[CommandesOut])
+def getCommandes(request: Any) -> Any:
+    return dbf.getCommandes()
+
+
+@api.patch("{id}")
+def updateCommande(
+    request: Any, id: int, client_id: int = 0, product_id: str = ""
+) -> int:
+    return dbf.updateCommande(id, client_id, product_id)
+
+
+@api.delete("")
+def deleteCommande(request: Any, id: int) -> int:
+    print("url debug")
+    return dbf.deleteCommande(id)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("api/", api.urls),
+    path("admin/", admin.site.urls),
+    path("orders/", api.urls),
 ]
