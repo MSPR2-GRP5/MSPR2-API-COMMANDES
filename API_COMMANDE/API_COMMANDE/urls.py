@@ -34,7 +34,7 @@ def getCommandes(request: Any) -> Any:
 
 @api.patch("{id}")
 def updateCommande(
-    request: Any, id: int, client_id: int = 0, product_id: int = 0
+    request: Any, id: int, client_id: int = 0, product_id: str = ""
 ) -> int:
     return dbf.updateCommande(id, client_id, product_id)
 

@@ -24,11 +24,13 @@ class CommandesTestCase(TestCase):
     def setUp(self) -> None:
         self.produit1 = Produits.objects.create(id=1)
         self.produit2 = Produits.objects.create(id=2)
-        self.commande1 = Commandes.objects.create(customerId=1, products=self.produit1)
-        self.commande2 = Commandes.objects.create(customerId=1, products=self.produit2)
+        self.commande1 = Commandes.objects.create(customerId=1)
+        self.commande1.products.set([self.produit1])
+        self.commande2 = Commandes.objects.create(customerId=1)
+        self.commande2.products.set([self.produit1])
 
     def testCreateCommande(self) -> None:
-        dbf.addCommande(customerId=2, products=1)
+        dbf.addCommande(customerId=2, products="1")
         self.assertEqual(Commandes.objects.all().count(), 3)
 
     def testReadCommande(self) -> None:

@@ -45,13 +45,15 @@ def addCommande(customerId: int, products: str) -> int:
         return 0
 
 
-def updateCommande(id: int, customerId: int = 0, products: int = 0) -> int:
+def updateCommande(id: int, customerId: int = 0, products: str = "") -> int:
     try:
         Commande = Commandes.objects.filter(id=id)[0]
         if customerId != 0:
             Commande.customerId = customerId
-        if products != 0:
-            Commande.products = products
+        if products != "":
+            for prods in products :
+                p1 = Produits(id=int(prods))
+                Commande.products.add(p1)
         Commande.save()
         return 1
     except Exception:
