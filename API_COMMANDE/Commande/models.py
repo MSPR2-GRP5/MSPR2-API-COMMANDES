@@ -15,4 +15,4 @@ class Commandes(models.Model):
     createdAt = models.DateField(default=date.today)
     id = models.AutoField(primary_key=True, null=False)
     customerId = models.IntegerField(null=False, default=1)
-    products = models.ForeignKey(Produits, on_delete=models.DO_NOTHING, null=True)
+    products = models.ManyToManyField(Produits)

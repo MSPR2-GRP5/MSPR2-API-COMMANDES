@@ -30,13 +30,16 @@ def deleteProduits(id: int) -> int:
         return 0
 
 
-def addCommande(customerId: int, products: int) -> int:
+def addCommande(customerId: int, products: str) -> int:
     try:
-        p1 = Produits(id=products)
-        p1.save()
-        commandes_tps = Commandes(customerId=customerId, products=p1)
+        commandes_tps = Commandes(customerId=customerId)
+        for prod in products.split(','):
+            p1 = Produits(id=int(prod))
+            p1.save()
+            commandes_tps.save()
+            commandes_tps.products.add(p1)  
+        print("banane")        
         commandes_tps.save()
-
         return 1
     except Exception:
         return 0

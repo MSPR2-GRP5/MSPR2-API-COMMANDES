@@ -19,11 +19,11 @@ class CommandesOut(Schema):
     id: int
     createdAt: datetime
     customerId: int
-    products: ProductSchema
+    products: list[ProductSchema]
 
 
 @api.post("")
-def addCommande(request: Any, customerId: int, products: int) -> int:
+def addCommande(request: Any, customerId: int, products: str) -> int:
     return dbf.addCommande(customerId, products)
 
 
