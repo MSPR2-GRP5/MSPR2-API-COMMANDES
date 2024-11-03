@@ -11,7 +11,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=web
-      - traefik.http.routers.mspr_order.rule=Host(`client.mspr.lorisperc.in`)
+      - traefik.http.routers.mspr_order.rule=Host(`commande.mspr.lorisperc.in`)
       - traefik.http.routers.mspr_order.service=mspr_order
       - traefik.http.routers.mspr_order.entrypoints=web
       - traefik.http.routers.mspr_order.entrypoints=websecure
