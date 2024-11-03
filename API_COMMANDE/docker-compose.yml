@@ -1,9 +1,24 @@
+networks:
+  web:
+    external: true
+
 services:
-  app:
-    container_name: api-commande
-    build: ../API_COMMANDE
-    command: python manage.py runserver 0.0.0.0:8000
+  web:
+    container_name: mspr_order
+    build: .
     ports:
-      - "8000:8000"
+      - "8002:8000"
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - traefik.http.routers.mspr_order.rule=Host(`client.mspr.lorisperc.in`)
+      - traefik.http.routers.mspr_order.service=mspr_order
+      - traefik.http.routers.mspr_order.entrypoints=web
+      - traefik.http.routers.mspr_order.entrypoints=websecure
+      - traefik.http.routers.mspr_order.tls=true
+      - traefik.http.routers.mspr_order.tls.certResolver=lets-encrypt
+      - traefik.http.services.mspr_order.loadbalancer.server.port=8000
+    networks:
+      - web
     env_file:
       - .env
